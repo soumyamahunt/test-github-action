@@ -10,6 +10,11 @@ jobs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 50
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Bump GitHub tag
         id: tag_generator
         uses: soumyamahunt/github-tag-action@test-other-ver-support
