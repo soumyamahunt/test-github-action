@@ -23,7 +23,7 @@ jobs:
             ]
           }'
           if ( ($env:GITHUB_EVENT_NAME -ceq 'pull_request') -or ($env:GITHUB_EVENT_NAME -ceq 'push') ) {
-            $CONFIG_MATRIX = '{
+            $MATRIX = '{
               "include": [
                 {
                   "configuration": "Debug",
