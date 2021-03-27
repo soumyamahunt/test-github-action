@@ -4,8 +4,51 @@ on:
   [ push, pull_request, workflow_dispatch ]
 
 jobs:
-  ci:
+  setup:
     runs-on: windows-latest
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
+    steps:
+      - name: Setup strategy matrix
+        id: set_matrix
+        shell: pwsh
+        run: |
+          $MATRIX = '{
+            "include": [
+              {
+                "configuration": "Production",
+                "debug": false,
+                "release": true
+              }
+            ]
+          }'
+          if ( ($env:GITHUB_EVENT_NAME -ceq 'pull_request') -or ($env:GITHUB_EVENT_NAME -ceq 'push') ) {
+            $CONFIG_MATRIX = '{
+              "include": [
+                {
+                  "configuration": "Debug",
+                  "debug": true,
+                  "release": false
+                },{
+                  "configuration": "Release",
+                  "debug": false,
+                  "release": false
+                },{
+                  "configuration": "Production",
+                  "debug": false,
+                  "release": true
+                }
+              ]
+            }'
+          }
+          echo "::set-output name=matrix::$($MATRIX -replace ' *\r*\n*', '')"
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+  ci:
+    needs: setup
+    runs-on: windows-latest
+    strategy:
+      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
@@ -32,6 +75,32 @@ jobs:
           default_bump: false
           dry_run: true
 
+      - if: matrix.debug
+        name: Check config type
+        id: check_config
+        shell: pwsh
+        run: |
+          echo "Debug configuration check succeded"
+
+      - name: Use config type
+        id: use_config
+        shell: pwsh
+        run: |
+          echo "Debug configuration check succeded"
+          if ($env:DEBUG) {
+              echo "This is debug config"
+          } else {
+              echo "This is not debug config"
+          }
+          if ($env:RELEASE) {
+              echo "This is release config"
+          } else {
+              echo "This is not release config"
+          }
+        env:
+          DEBUG: ${{ matrix.debug }}
+          RELEASE: ${{ matrix.release }}
+
       - name: Update tags
         id: update_tag
         shell: pwsh
@@ -47,7 +116,7 @@ jobs:
           OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
 
   cd:
-    needs: ci
+    needs: [ setup, ci ]
     runs-on: windows-latest
     env:
       NEW_ASSEMBLY_VERSION: ${{ needs.ci.outputs.new_version }}
