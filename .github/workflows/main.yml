@@ -24,15 +24,27 @@ jobs:
           default_bump: false
           dry_run: true
 
+      - name: Bump GitHub tag og
+        id: og_tag_generator
+        uses: mathieudutour/github-tag-action@v5
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
+          dry_run: true
+
       - name: Update tags
         id: update_tag
         shell: pwsh
         run: |
           echo "New version is $env:NEW_VERSION"
           echo "New tag is $env:NEW_VERSION_TAG"
+          echo "OG New version is $env:OG_NEW_VERSION"
+          echo "OG New tag is $env:OG_NEW_VERSION_TAG"
         env:
           NEW_VERSION: "${{ steps.tag_generator.outputs.new_version }}.0"
           NEW_VERSION_TAG: "v${{ steps.tag_generator.outputs.new_version }}.0"
+          OG_NEW_VERSION: "${{ steps.og_tag_generator.outputs.new_version }}.0"
+          OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
 
   cd:
     needs: ci
