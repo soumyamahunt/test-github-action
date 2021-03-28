@@ -1,7 +1,14 @@
 name: Notepads CI/CD Pipeline
 
 on: 
-  [ push, pull_request, workflow_dispatch ]
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Type of event to trigger (type "release" to trigger release, default is "test")'
+        required: false
+        default: 'test'
 
 jobs:
   setup:
@@ -65,7 +72,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           latest_ver: '1.2.3'
           default_bump: false
-          dry_run: true
 
       - name: Bump GitHub tag og
         id: og_tag_generator
