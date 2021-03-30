@@ -2,6 +2,18 @@ name: Notepads CI/CD Pipeline
 
 on: 
   push:
+    inputs:
+     matrix:
+       include:
+         - configuration: Debug
+           debug: true
+           release: false
+         - configuration: Release
+           debug: false
+           release: false
+         - configuration: Production
+           debug: false
+           release: true
   pull_request:
   workflow_dispatch:
     inputs:
@@ -11,51 +23,51 @@ on:
         default: 'test'
 
 jobs:
-  setup:
-    runs-on: windows-latest
-    outputs:
-      matrix: ${{ steps.set_matrix.outputs.matrix }}
-    steps:
-      - name: Setup strategy matrix
-        id: set_matrix
-        shell: pwsh
-        run: |
-          $MATRIX = '{
-            "include": [
-              {
-                "configuration": "Production",
-                "debug": false,
-                "release": true
-              }
-            ]
-          }'
-          if ( ($env:GITHUB_EVENT_NAME -ceq 'pull_request') -or ($env:GITHUB_EVENT_NAME -ceq 'push') ) {
-            $MATRIX = '{
-              "include": [
-                {
-                  "configuration": "Debug",
-                  "debug": true,
-                  "release": false
-                },{
-                  "configuration": "Release",
-                  "debug": false,
-                  "release": false
-                },{
-                  "configuration": "Production",
-                  "debug": false,
-                  "release": true
-                }
-              ]
-            }'
-          }
-          echo "::set-output name=matrix::$($MATRIX -replace ' *\r*\n*', '')"
-        env:
-          GITHUB_EVENT_NAME: ${{ github.event_name }}
+  #setup:
+  #  runs-on: windows-latest
+  #  outputs:
+  #    matrix: ${{ steps.set_matrix.outputs.matrix }}
+  #  steps:
+  #    - name: Setup strategy matrix
+  #      id: set_matrix
+  #      shell: pwsh
+  #      run: |
+  #        $MATRIX = '{
+  #          "include": [
+  #            {
+  #              "configuration": "Production",
+  #              "debug": false,
+  #              "release": true
+  #            }
+  #          ]
+  #        }'
+  #        if ( ($env:GITHUB_EVENT_NAME -ceq 'pull_request') -or ($env:GITHUB_EVENT_NAME -ceq 'push') ) {
+  #          $MATRIX = '{
+  #            "include": [
+  #              {
+  #                "configuration": "Debug",
+  #                "debug": true,
+  #                "release": false
+  #              },{
+  #                "configuration": "Release",
+  #                "debug": false,
+  #                "release": false
+  #              },{
+  #                "configuration": "Production",
+  #                "debug": false,
+  #                "release": true
+  #              }
+  #            ]
+  #          }'
+  #        }
+  #        echo "::set-output name=matrix::$($MATRIX -replace ' *\r*\n*', '')"
+  #      env:
+  #        GITHUB_EVENT_NAME: ${{ github.event_name }}
   ci:
-    needs: setup
+    #needs: setup
     runs-on: windows-latest
     strategy:
-      matrix: ${{ fromJson(needs.setup.outputs.matrix) }}
+      matrix: ${{ github.event.inputs.matrix }}
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
@@ -71,6 +83,7 @@ jobs:
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
           latest_ver: '1.2.3'
+          dry_run: true
           default_bump: false
 
       - name: Bump GitHub tag og
@@ -122,7 +135,7 @@ jobs:
           OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
 
   cd:
-    needs: [ setup, ci ]
+    needs: ci
     runs-on: windows-latest
     env:
       NEW_ASSEMBLY_VERSION: ${{ needs.ci.outputs.new_version }}
