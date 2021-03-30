@@ -66,8 +66,8 @@ jobs:
   ci:
     #needs: setup
     runs-on: windows-latest
-    strategy:
-      matrix: ${{ github.event.inputs.matrix }}
+    #strategy:
+      #matrix: ${{ github.event.inputs.matrix }}
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
@@ -116,9 +116,11 @@ jobs:
           } else {
               echo "This is not release config"
           }
+          echo "$env:MATRIX"
         env:
           DEBUG: ${{ matrix.debug }}
           RELEASE: ${{ matrix.release }}
+          MATRIX: ${{ toJson(github.event.inputs.matrix) }}
 
       - name: Update tags
         id: update_tag
