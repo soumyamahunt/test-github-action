@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
     inputs:
       type:
-        description: 'Type of event to trigger (type "release" to trigger release, default is "test")'
+        description: 'Type of event to trigger (type "release" to trigger release)'
         required: false
         default: 'test'
 
