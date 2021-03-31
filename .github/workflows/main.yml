@@ -16,11 +16,6 @@ on:
            release: true
   pull_request:
   workflow_dispatch:
-    inputs:
-      type:
-        description: 'Type of event to trigger (type "release" to trigger release)'
-        required: false
-        default: 'test'
 
 jobs:
   #setup:
