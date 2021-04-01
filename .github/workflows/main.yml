@@ -22,7 +22,7 @@ on:
         required: true
         default: 'path'
       reason:
-        description: 'Reason for dismissal ("fp" for "false positive", "wf" for "won\u0027t fix" and "ut" for "used in tests")'
+        description: Reason for dismissal ("fp" for "false positive", "wf" for "won't fix" and "ut" for "used in tests")
         required: true
         default: 'wf'
 
