@@ -16,6 +16,15 @@ on:
            release: true
   pull_request:
   workflow_dispatch:
+    inputs:
+      type:
+        description: 'Type of filter to use ("path" for using path and "desc" for using description)'
+        required: true
+        default: 'path'
+      reason:
+        description: 'Reason for dismissal ("fp" for "false positive", "wf" for "won\u0027t fix" and "ut" for "used in tests")'
+        required: true
+        default: 'wf'
 
 jobs:
   #setup:
