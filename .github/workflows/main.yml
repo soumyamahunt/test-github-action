@@ -70,8 +70,8 @@ jobs:
   ci:
     #needs: setup
     runs-on: windows-latest
-    #strategy:
-      #matrix: ${{ github.event.inputs.matrix }}
+    strategy:
+      matrix: ${{ github.event.inputs.matrix }}
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
