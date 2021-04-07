@@ -2,18 +2,6 @@ name: Notepads CI/CD Pipeline
 
 on: 
   push:
-    inputs:
-      matrix:
-        include:
-          - configuration: Debug
-            debug: true
-            release: false
-          - configuration: Release
-            debug: false
-            release: false
-          - configuration: Production
-            debug: false
-            release: true
   pull_request:
   workflow_dispatch:
     inputs:
@@ -70,8 +58,6 @@ jobs:
   ci:
     #needs: setup
     runs-on: windows-latest
-    strategy:
-      matrix: ${{ github.event.inputs.matrix }}
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
@@ -142,6 +128,20 @@ jobs:
           NEW_VERSION_TAG: "v${{ steps.tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION: "${{ steps.og_tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
+
+      - name: Generate changelog
+        id: changelog
+        uses: mikepenz/release-changelog-builder-action@v1.7.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print changelog
+        id: print_changelog
+        shell: pwsh
+        run: |
+          echo "$env:CHANGELOG"
+        env:
+          CHANGELOG: ${{ steps.changelog.outputs.changelog }}
 
   cd:
     needs: ci
