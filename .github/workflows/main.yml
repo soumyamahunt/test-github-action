@@ -156,12 +156,6 @@ jobs:
           OG_NEW_VERSION: "${{ steps.og_tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
 
-      - name: Generate changelog
-        id: changelog
-        uses: mikepenz/release-changelog-builder-action@v1.7.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Print changelog
         id: print_changelog
         shell: pwsh
@@ -169,6 +163,13 @@ jobs:
           echo "$env:CHANGELOG"
         env:
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
+
+      - name: Generate changelog
+        id: changelog
+        uses: mikepenz/release-changelog-builder-action@v1.7.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
   cd:
     needs: ci
