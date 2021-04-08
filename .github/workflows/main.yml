@@ -1,6 +1,6 @@
 name: Notepads CI/CD Pipeline
 
-on: 
+on:
   push:
   pull_request:
   workflow_dispatch:
@@ -15,6 +15,33 @@ on:
         default: 'wf'
 
 jobs:
+  one:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
   #setup:
   #  runs-on: windows-latest
   #  outputs:
@@ -70,7 +97,7 @@ jobs:
       - name: Bump GitHub tag
         id: tag_generator
         uses: soumyamahunt/github-tag-action@test-other-ver-support
-        with: 
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           latest_ver: '1.2.3'
           dry_run: true
@@ -79,7 +106,7 @@ jobs:
       - name: Bump GitHub tag og
         id: og_tag_generator
         uses: mathieudutour/github-tag-action@v5
-        with: 
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           append_to_pre_release_tag: '.5'
           release_branches: release
