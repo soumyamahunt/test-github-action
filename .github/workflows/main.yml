@@ -164,6 +164,22 @@ jobs:
         env:
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
 
+      - name: Universal changelog
+        id: universal_changelog
+        uses: soumyamahunt/universal-changelog-action@main
+        with:
+          previousReleaseTagNameOrSha: v1.2.3.5
+          nextReleaseTagName: v1.3.4.5
+          nextReleaseName: Test release
+
+      - name: Print universal changelog
+        id: print_universal_changelog
+        shell: pwsh
+        run: |
+          echo "$env:CHANGELOG"
+        env:
+          CHANGELOG: ${{ steps.universal_changelog.outputs.changelog }}
+
       - name: Generate changelog
         id: changelog
         uses: mikepenz/release-changelog-builder-action@v1.7.1
