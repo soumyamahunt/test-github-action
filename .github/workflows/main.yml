@@ -166,7 +166,7 @@ jobs:
 
       - name: Universal changelog
         id: universal_changelog
-        uses: soumyamahunt/universal-changelog-action@main
+        uses: soumyamahunt/universal-changelog-action@master
         with:
           previousReleaseTagNameOrSha: v1.2.3.5
           nextReleaseTagName: v1.3.4.5
