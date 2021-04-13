@@ -129,12 +129,12 @@ jobs:
         shell: pwsh
         run: |
           echo "Debug configuration check succeded"
-          if ($env:DEBUG) {
+          if ($env:DEBUG -eq 'true' ) {
               echo "This is debug config"
           } else {
               echo "This is not debug config"
           }
-          if ($env:RELEASE) {
+          if ($env:RELEASE -eq 'true' ) {
               echo "This is release config"
           } else {
               echo "This is not release config"
@@ -142,7 +142,7 @@ jobs:
           echo "$env:MATRIX"
         env:
           DEBUG: ${{ matrix.debug }}
-          RELEASE: ${{ matrix.release == 'test' }}
+          RELEASE: ${{ matrix.release == 'release' && true }}
           MATRIX: ${{ toJson(github.event.inputs.matrix) }}
 
       - name: Update tags
