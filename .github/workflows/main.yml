@@ -85,6 +85,9 @@ jobs:
   ci:
     #needs: setup
     runs-on: windows-latest
+    strategy:
+      matrix:
+        release: [test, release]
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
@@ -139,7 +142,7 @@ jobs:
           echo "$env:MATRIX"
         env:
           DEBUG: ${{ matrix.debug }}
-          RELEASE: ${{ matrix.release }}
+          RELEASE: ${{ matrix.release == 'test' }}
           MATRIX: ${{ toJson(github.event.inputs.matrix) }}
 
       - name: Update tags
