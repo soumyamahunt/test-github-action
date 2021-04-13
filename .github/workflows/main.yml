@@ -174,7 +174,7 @@ jobs:
           previousReleaseTagNameOrSha: v1.2.3.5
           nextReleaseTagName: v1.3.4.5
           nextReleaseName: Test release
-          configPath: .github/release.json
+          configFilePath: .github/release.json
 
       - name: Print universal changelog
         id: print_universal_changelog
