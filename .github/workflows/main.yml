@@ -142,7 +142,7 @@ jobs:
           echo "$env:MATRIX"
         env:
           DEBUG: ${{ matrix.debug }}
-          RELEASE: ${{ matrix.release == 'release' && true }}
+          RELEASE: ${{ matrix.release == 'release' || true }}
           MATRIX: ${{ toJson(github.event.inputs.matrix) }}
 
       - name: Update tags
