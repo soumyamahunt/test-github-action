@@ -1,6 +1,5 @@
 {
   "conventionalCommitsParserOptions": {
-    /* https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#options */
     "revertPattern": "/^(?:Revert|revert:)\\s\"?([\\s\\S]+?)\"?\\s*This reverts commit (\\w*)\\./i",
     "issuePrefixes": [ "#", "OLDARCH-" ]
   },
