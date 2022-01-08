@@ -204,10 +204,13 @@ jobs:
           echo "New version is $env:NEW_ASSEMBLY_VERSION"
           echo "New tag is $env:NEW_TAG"
           
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CUSTOM_TAG: 'v1.4.0'
+      - name: package-version-to-git-tag
+        uses: pkgdeps/git-tag-action@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_repo: ${{ github.repository }}
+          git_commit_sha: ${{ github.sha }}
+          version: "1.4.0.0"
+          git_tag_prefix: "v"
 
 # Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
