@@ -187,9 +187,21 @@ jobs:
       - name: Generate changelog
         id: changelog
         uses: mikepenz/release-changelog-builder-action@v1.7.1
+        with:
+          fromTag: v1.2.3.5
+          toTag: v1.3.4.5
+          commitMode: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
+
+      - name: Print changelog
+        id: print_builder_changelog
+        shell: pwsh
+        run: |
+          echo "$env:CHANGELOG"
+        env:
+          CHANGELOG: ${{ steps.changelog.outputs.changelog }}
 
   cd:
     needs: ci
@@ -204,13 +216,13 @@ jobs:
           echo "New version is $env:NEW_ASSEMBLY_VERSION"
           echo "New tag is $env:NEW_TAG"
           
-      - name: package-version-to-git-tag
-        uses: pkgdeps/git-tag-action@v2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          github_repo: ${{ github.repository }}
-          git_commit_sha: ${{ github.sha }}
-          version: "1.4.0.0"
-          git_tag_prefix: "v"
+      #- name: package-version-to-git-tag
+      #  uses: pkgdeps/git-tag-action@v2
+      #  with:
+      #    github_token: ${{ secrets.GITHUB_TOKEN }}
+      #    github_repo: ${{ github.repository }}
+      #    git_commit_sha: ${{ github.sha }}
+      #    version: "1.4.0.0"
+      #    git_tag_prefix: "v"
 
 # Built with ❤ by [Pipeline Foundation](https://pipeline.foundation)
