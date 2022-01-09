@@ -1,0 +1,49 @@
+{
+    "categories": [
+        {
+            "title": "## 🚀 Performance",
+            "labels": [
+                "perf"
+            ]
+        },
+        {
+            "title": "## 🚀 Features",
+            "labels": [
+                "feat",
+                "feature"
+            ]
+        },
+        {
+            "title": "## 🐛 Fixes",
+            "labels": [
+                "fix"
+            ]
+        },
+        {
+            "title": "## 🧪 Tests",
+            "labels": [
+                "test"
+            ]
+        }
+    ],
+    "ignore_labels": [
+        "ignore",
+        "chore"
+    ],
+    "template": "${{CHANGELOG}}\n\n<details>\n<summary>Others</summary>\n\n${{UNCATEGORIZED}}\n</details>",
+    "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
+    "empty_template": "- no changes",
+    "duplicate_filter": {
+        "pattern": "\\[ABC-....\\]",
+        "on_property": "title",
+        "method": "match"
+    },
+    "transformers": [
+        {
+            "pattern": "[\\-\\*] (\\[(...|TEST|CI|SKIP)\\])( )?(.+?)\n(.+?[\\-\\*] )(.+)",
+            "target": "- $4\n  - $6"
+        }
+    ],
+    "max_pull_requests": 1000,
+    "max_back_track_time_days": 1000
+}
