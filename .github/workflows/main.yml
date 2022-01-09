@@ -166,12 +166,17 @@ jobs:
           echo "$env:CHANGELOG"
         env:
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
+          
+      - name: Get tag
+        id: get_tag
+        run: |
+          echo "::set-output name=tag::$(git describe --abbrev=0 --tags || git rev-list --max-parents=0 HEAD)"
 
       - name: Universal changelog
         id: universal_changelog
         uses: soumyamahunt/universal-changelog-action@master
         with:
-          previousReleaseTagNameOrSha: v1.2.3.5
+          previousReleaseTagNameOrSha: ${{ steps.get_tag.outputs.tag }}
           nextReleaseTagName: ${{ github.sha }}
           nextReleaseName: Test release
           configFilePath: .github/release.json
@@ -188,7 +193,7 @@ jobs:
         id: changelog
         uses: mikepenz/release-changelog-builder-action@v1.7.1
         with:
-          #fromTag: v1.2.3.5
+          fromTag: ${{ steps.get_tag.outputs.tag }}
           toTag: ${{ github.sha }}
           commitMode: true
         env:
