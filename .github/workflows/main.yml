@@ -172,7 +172,7 @@ jobs:
         uses: soumyamahunt/universal-changelog-action@master
         with:
           previousReleaseTagNameOrSha: v1.2.3.5
-          nextReleaseTagName: v1.3.4.5
+          nextReleaseTagName: ${{ github.sha }}
           nextReleaseName: Test release
           configFilePath: .github/release.json
 
