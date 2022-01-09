@@ -189,7 +189,7 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v1.7.1
         with:
           fromTag: v1.2.3.5
-          toTag: v1.3.4.5
+          toTag: ${{ github.sha }}
           commitMode: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
