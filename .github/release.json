@@ -4,7 +4,7 @@
     "issuePrefixes": [ "#", "OLDARCH-" ]
   },
   "handleBarsOptions": {
-    "setupFile": ".github/setup.js",
+    "setupFile": null,
     "template": ".github/template.hbs",
     "compileOptions": { "noEscape": true }
   },
