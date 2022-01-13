@@ -30,7 +30,7 @@
 - {{#if scope}} **{{scope}}:** {{/if}}{{subject}} ([`{{shorthash}}`]({{html_url}}))
 {{/commit-list}}
 
-{{#commit-list commits heading='### 📚 Documentation' type='docs' excludeBreaking=true }}
+{{#commit-list commits heading='### 📚 Documentation' type='docs' exclude='docs\(CHANGELOG\).+' excludeBreaking=true }}
 - {{#if scope}} **{{scope}}:** {{/if}}{{subject}} ([`{{shorthash}}`]({{html_url}}))
 {{/commit-list}}
 
