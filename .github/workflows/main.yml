@@ -170,27 +170,7 @@ jobs:
       - name: Get tag
         id: get_tag
         run: |
-          echo "::set-output name=tag::$(git describe --abbrev=0 --tags || git rev-list --max-parents=0 HEAD)"
-          
-      - name: Get Commits
-        id: commits
-        uses: actions/github-script@v2
-        env:
-          FROM_TAG: ${{ steps.get_tag.outputs.tag }}
-        with:
-          github-token: ${{github.token}}
-          script: |
-            const commits = await github.paginate(github.repos.compareCommits, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              base: process.env.FROM_TAG,
-              head: context.sha,
-              per_page: 100,
-            },
-              (response) => response.data.commits
-              );
-            // Strip out commit.verification property to make commit info shorter and avoid error: ##[error]Argument list too long
-            core.setOutput("commits", JSON.stringify(commits.map(c => ({...c, commit: { ...c.commit, verification: null } })))) 
+          echo "::set-output name=tag::$(git describe --abbrev=0 --tags || git rev-list --max-parents=0 HEAD)" 
 
       - name: Universal changelog
         id: universal_changelog
@@ -198,7 +178,6 @@ jobs:
         with:
           previousReleaseTagNameOrSha: ${{ steps.get_tag.outputs.tag }}
           nextReleaseTagName: ${{ github.sha }}
-          commits: ${{ steps.commits.outputs.commits }}
           nextReleaseName: Test release
           configFilePath: .github/release.json
 
