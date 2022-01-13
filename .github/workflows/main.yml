@@ -190,7 +190,7 @@ jobs:
               (response) => response.data.commits
               );
             // Strip out commit.verification property to make commit info shorter and avoid error: ##[error]Argument list too long
-            core.setOutput("commits", JSON.stringify(commits.data.map(c => ({...c, commit: { ...c.commit, verification: null } })))) 
+            core.setOutput("commits", JSON.stringify(commits.map(c => ({...c, commit: { ...c.commit, verification: null } })))) 
 
       - name: Universal changelog
         id: universal_changelog
