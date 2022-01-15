@@ -174,7 +174,7 @@ jobs:
 
       - name: Universal changelog
         id: universal_changelog
-        uses: soumyamahunt/universal-changelog-action@8909e57d325390a2b333dc44b9ac52378984cc4f
+        uses: soumyamahunt/universal-changelog-action@48abba400398a8426cb40ed80a347a665c81f23c
         with:
           previousReleaseTagNameOrSha: ${{ steps.get_tag.outputs.tag }}
           nextReleaseTagName: ${{ github.sha }}
