@@ -31,7 +31,9 @@
 {{/commit-list}}
 
 {{#commit-list commits heading='### 📚 Documentation' type='docs' exclude='docs\\\(CHANGELOG\\\).+' excludeBreaking=true }}
+{{#if (ne scope 'CHANGELOG')}}
 - {{#if scope}} **{{scope}}:** {{/if}}{{subject}} ([`{{shorthash}}`]({{html_url}}))
+{{/if}}
 {{/commit-list}}
 
 {{#commit-list commits heading='### 💄 Style' type='style' excludeBreaking=true }}
