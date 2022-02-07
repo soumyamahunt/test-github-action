@@ -191,7 +191,7 @@ jobs:
 
       - name: Generate changelog
         id: changelog
-        uses: mikepenz/release-changelog-builder-action@v1.7.1
+        uses: mikepenz/release-changelog-builder-action@v2.8.2
         with:
           fromTag: ${{ steps.get_tag.outputs.tag }}
           toTag: ${{ github.sha }}
