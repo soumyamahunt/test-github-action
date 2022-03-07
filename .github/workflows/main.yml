@@ -158,6 +158,25 @@ jobs:
           NEW_VERSION_TAG: "v${{ steps.tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION: "${{ steps.og_tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
+          
+      - name: Conventional Changelog Action
+        id: auto_changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.github_token }}
+          skip-commit: "true"
+
+      - name: Print conventional changelog
+        id: print_conventional_changelog
+        shell: pwsh
+        run: |
+          echo "$env:TAG"
+          echo "$env:VERSION"
+          echo "$env:CHANGELOG"
+        env:
+          CHANGELOG: ${{ steps.auto_changelog.outputs.changelog }}
+          TAG: ${{ steps.auto_changelog.outputs.tag }}
+          VERSION: ${{ steps.auto_changelog.outputs.version }}
 
       - name: Print changelog
         id: print_changelog
