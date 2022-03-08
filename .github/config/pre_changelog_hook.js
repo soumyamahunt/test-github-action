@@ -13,7 +13,7 @@ exports.preVersionGeneration = (version) => {
   core.info(`currentVersion: ${currentVersion}`);
   if (semver.lt(version, currentVersion)) { version = currentVersion; }
   core.info(`version: ${version}`);
-  const new_gem_info = gem_info.replace(/VERSION\s*=\s*.*/g, `VERSION = '${version}'`);
+  const new_gem_info = gem_info.replace(/VERSION\s*=\s*.*/g, `VERSION = '${version}'.freeze`);
   core.info(`new_gem_info: ${new_gem_info}`);
   fs.writeFileSync(gem_info_file, new_gem_info);
   return version;
