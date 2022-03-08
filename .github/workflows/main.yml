@@ -165,6 +165,8 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           skip-commit: "true"
+          pre-commit: '.github/config/pre_changelog_hook.js'
+          config-file-path: '.github/config/config.js'
 
       - name: Print conventional changelog
         id: print_conventional_changelog
