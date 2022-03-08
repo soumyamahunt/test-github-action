@@ -1,0 +1,15 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "config.js",
+  "license": "MIT",
+  "author": {
+    "name": "Soumya Ranjan Mahunt",
+    "email": "devsoumyamahunt@gmail.com"
+  },
+  "dependencies": {
+    "conventional-changelog-conventionalcommits": "^4.6.3",
+    "semver": "^7.3.5"
+  }
+}
