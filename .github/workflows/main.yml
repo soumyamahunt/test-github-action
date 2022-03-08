@@ -170,6 +170,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.github_token }}
+          skip-version-file: "true"
           pre-commit: '.github/config/pre_changelog_hook.js'
           config-file-path: '.github/config/config.js'
 
