@@ -7,7 +7,7 @@ exports.preVersionGeneration = (version) => {
   const { GITHUB_WORKSPACE } = process.env;
   core.info(`version: ${version}`);
   const gem_info_file = path.join(GITHUB_WORKSPACE, 'lib/cocoapods-embed-flutter/gem_version.rb');
-  const gem_info = fs.readFileSync(gem_info_file);
+  const gem_info = `${fs.readFileSync(gem_info_file)}`;
   core.info(`gem_info: ${gem_info}`);
   currentVersion = gem_info.match(/VERSION\s*=\s'(.*)'/g)[1];
   core.info(`currentVersion: ${currentVersion}`);
