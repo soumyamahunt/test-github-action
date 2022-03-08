@@ -1,3 +1,12 @@
+## [0.5.0](https://github.com/soumyamahunt/test-github-action/compare/v0.1.2...v0.5.0) (2022-03-08)
+
+
+### 💡 Continuous Integration
+
+* fix empty version ([87b1419](https://github.com/soumyamahunt/test-github-action/commit/87b1419a48bbf7ec663293f784514974d90d2f36))
+* fix method error ([78b27a5](https://github.com/soumyamahunt/test-github-action/commit/78b27a55992b263c6ec6515a11bce55d50785c68))
+* hook path ([41b46f7](https://github.com/soumyamahunt/test-github-action/commit/41b46f746f80b66d27cf102310bfe59f9c461453))
+
 ### [0.1.2](https://github.com/soumyamahunt/test-github-action/compare/v0.1.1...v0.1.2) (2022-03-08)
 
 
