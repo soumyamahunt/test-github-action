@@ -171,7 +171,7 @@ jobs:
         with:
           github-token: ${{ secrets.github_token }}
           skip-version-file: "true"
-          pre-commit: '.github/config/pre_changelog_hook.js'
+          pre-changelog-generation: '.github/config/pre_changelog_hook.js'
           config-file-path: '.github/config/config.js'
 
       - name: Print conventional changelog
