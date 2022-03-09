@@ -1,3 +1,10 @@
+### [0.5.6](https://github.com/soumyamahunt/test-github-action/compare/v0.5.5...v0.5.6) (2022-03-09)
+
+
+### 💡 Continuous Integration
+
+* test release type ([09624a6](https://github.com/soumyamahunt/test-github-action/commit/09624a6df119d889392054aaedc7dd8abded8bf3))
+
 ### [0.5.5](https://github.com/soumyamahunt/test-github-action/compare/v0.5.4...v0.5.5) (2022-03-09)
 
 
@@ -25,11 +32,4 @@
 ### 💡 Continuous Integration
 
 * test release type ([582a213](https://github.com/soumyamahunt/test-github-action/commit/582a213b201b133d850f12822473894de6b080ad))
-
-### [0.5.1](https://github.com/soumyamahunt/test-github-action/compare/v0.5.0...v0.5.1) (2022-03-08)
-
-
-### 🐛 Fixes
-
-* freeze ([c7be131](https://github.com/soumyamahunt/test-github-action/commit/c7be1318737ec71fc5440bdd177211ba53f60e45))
 
