@@ -1,3 +1,10 @@
+### [0.5.1](https://github.com/soumyamahunt/test-github-action/compare/v0.5.0...v0.5.1) (2022-03-08)
+
+
+### 🐛 Fixes
+
+* freeze ([c7be131](https://github.com/soumyamahunt/test-github-action/commit/c7be1318737ec71fc5440bdd177211ba53f60e45))
+
 ## [0.5.0](https://github.com/soumyamahunt/test-github-action/compare/v0.1.2...v0.5.0) (2022-03-08)
 
 
