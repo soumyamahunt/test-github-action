@@ -236,6 +236,7 @@ jobs:
           CHANGELOG: ${{ steps.changelog.outputs.changelog }}
 
   cd:
+    if: (!needs.ci.outputs.release_type)
     needs: ci
     runs-on: ubuntu-latest
     env:
