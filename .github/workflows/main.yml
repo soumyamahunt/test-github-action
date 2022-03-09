@@ -85,9 +85,6 @@ jobs:
   ci:
     #needs: setup
     runs-on: windows-latest
-    strategy:
-      matrix:
-        release: [test, release]
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
@@ -123,12 +120,12 @@ jobs:
           default_bump: false
           dry_run: true
 
-      - if: matrix.debug
-        name: Check config type
-        id: check_config
-        shell: pwsh
-        run: |
-          echo "Debug configuration check succeded"
+      # - if: matrix.debug
+      #   name: Check config type
+      #   id: check_config
+      #   shell: pwsh
+      #   run: |
+      #     echo "Debug configuration check succeded"
 
       - name: Use config type
         id: use_config
@@ -159,11 +156,13 @@ jobs:
           echo "New tag is $env:NEW_VERSION_TAG"
           echo "OG New version is $env:OG_NEW_VERSION"
           echo "OG New tag is $env:OG_NEW_VERSION_TAG"
+          echo "OG release type is $env:RELEASE_TYPE"
         env:
           NEW_VERSION: "${{ steps.tag_generator.outputs.new_version }}.0"
           NEW_VERSION_TAG: "v${{ steps.tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION: "${{ steps.og_tag_generator.outputs.new_version }}.0"
           OG_NEW_VERSION_TAG: "v${{ steps.og_tag_generator.outputs.new_version }}.0"
+          RELEASE_TYPE: "${{ steps.og_tag_generator.outputs.release_type }}"
           
       - name: Conventional Changelog Action
         id: auto_changelog
