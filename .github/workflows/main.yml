@@ -88,6 +88,7 @@ jobs:
     outputs:
       new_version: "${{ steps.tag_generator.outputs.new_version }}.0"
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
+      release_type: ${{ steps.og_tag_generator.outputs.new_version }} == ''
     steps:
       - uses: actions/checkout@v2
         with:
@@ -240,12 +241,14 @@ jobs:
     env:
       NEW_ASSEMBLY_VERSION: ${{ needs.ci.outputs.new_version }}
       NEW_TAG: ${{ needs.ci.outputs.new_version_tag }}
+      RELEASE_TYPE: ${{ needs.ci.outputs.release_type }}
     steps:
       - name: Check output
         id: check_output
         run: |
           echo "New version is $env:NEW_ASSEMBLY_VERSION"
           echo "New tag is $env:NEW_TAG"
+          echo "New tag is $env:RELEASE_TYPE"
           
       #- name: package-version-to-git-tag
       #  uses: pkgdeps/git-tag-action@v2
