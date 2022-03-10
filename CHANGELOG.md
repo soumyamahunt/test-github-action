@@ -1,9 +1,14 @@
-# Changelog
+### [0.5.7](https://github.com/soumyamahunt/test-github-action/compare/v0.5.6...v0.5.7) (2022-03-10)
 
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### 💡 Continuous Integration
+
+* test changelog without bump ([bf0f4f9](https://github.com/soumyamahunt/test-github-action/commit/bf0f4f9afd08ef2b2ebee717a100cf1f1148cc92))
+
+
+### 📚 Documentation
+
+* add changelog header ([11c31e2](https://github.com/soumyamahunt/test-github-action/commit/11c31e2c98d6bfb99fb17397d2c2c77b5bc47582))
 
 ### [0.5.6](https://github.com/soumyamahunt/test-github-action/compare/v0.5.5...v0.5.6) (2022-03-09)
 
@@ -32,11 +37,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 💡 Continuous Integration
 
 * test release type ([50f617d](https://github.com/soumyamahunt/test-github-action/commit/50f617db44854fa9b0b20147eb962f9354c8c673))
-
-### [0.5.2](https://github.com/soumyamahunt/test-github-action/compare/v0.5.1...v0.5.2) (2022-03-09)
-
-
-### 💡 Continuous Integration
-
-* test release type ([582a213](https://github.com/soumyamahunt/test-github-action/commit/582a213b201b133d850f12822473894de6b080ad))
 
