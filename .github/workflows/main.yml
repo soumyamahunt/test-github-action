@@ -86,7 +86,7 @@ jobs:
       new_version_tag: "v${{ steps.tag_generator.outputs.new_version }}.0"
       release: ${{ steps.og_tag_generator.outputs.release_type != '' }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
