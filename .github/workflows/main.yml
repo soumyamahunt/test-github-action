@@ -16,8 +16,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-      os: [ubuntu-18.04, ubuntu-20.04]
-      skip: [true, false]
+        os: [ubuntu-18.04, ubuntu-20.04]
+        skip: [true, false]
     steps:
       - name: Dump GitHub context
         env:
