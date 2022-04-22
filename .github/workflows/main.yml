@@ -42,7 +42,9 @@ jobs:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "env:$MATRIX_CONTEXT"
       - name: Dump user context
-        run: echo `id`
+        run: |
+          echo `id`
+          sudo cat /etc/sudoers
   #setup:
   #  runs-on: windows-latest
   #  outputs:
