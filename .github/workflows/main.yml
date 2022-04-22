@@ -12,12 +12,10 @@ on:
 
 jobs:
   one:
-    if: matrix.skip == 'true'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macos-latest, ubuntu-20.04]
-        skip: [true, false]
     steps:
       - name: Dump GitHub context
         env:
