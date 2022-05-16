@@ -223,7 +223,7 @@ jobs:
 
       - name: Generate changelog
         id: changelog
-        uses: mikepenz/release-changelog-builder-action@v1.7.1
+        uses: mikepenz/release-changelog-builder-action@v3.0.0
         with:
           fromTag: ${{ steps.get_tag.outputs.tag }}
           toTag: ${{ github.sha }}
