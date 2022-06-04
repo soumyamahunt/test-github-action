@@ -76,6 +76,8 @@ jobs:
             });
             const success = (runs.data.workflow_runs[0]?.status === 'success') ||
              (runs.data.workflow_runs[1]?.status === 'success');
+            console.log(runs.data.workflow_runs[0]?.status);
+            console.log(runs.data.workflow_runs[1]?.status);
             console.log(success);
         env:
           WORKFLOW: main.yml
