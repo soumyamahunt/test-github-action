@@ -74,8 +74,8 @@ jobs:
               per_page: 2,
               page: 1
             });
-            const success = (runs.data.workflow_runs[0]?.status === 'success') ||
-             (runs.data.workflow_runs[1]?.status === 'success');
+            const success = (runs.data.workflow_runs[0]?.status === 'completed') ||
+             (runs.data.workflow_runs[1]?.status === 'completed');
             console.log(runs.data.workflow_runs[0]?.status);
             console.log(runs.data.workflow_runs[1]?.status);
             console.log(success);
