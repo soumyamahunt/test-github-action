@@ -54,11 +54,8 @@ jobs:
           sudo cat /etc/sudoers
       - name: Dump env context
         run: printenv
-      - name: View context attributes
-        uses: actions/github-script@v6
-        with:
-          script: console.log(context)
       - name: Get last run
+        id: check
         uses: actions/github-script@v6.1.0
         with:
           result-encoding: json
@@ -78,9 +75,14 @@ jobs:
              (runs.data.workflow_runs[1]?.status === 'completed');
             console.log(runs.data.workflow_runs[0]?.status);
             console.log(runs.data.workflow_runs[1]?.status);
-            console.log(success);
+            return success;
         env:
           WORKFLOW: main.yml
+      - name: View context attributes
+        if: steps.check.outputs.result == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)
 
   two:
     uses: ./.github/workflows/called.yml
