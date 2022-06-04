@@ -74,8 +74,8 @@ jobs:
               per_page: 2,
               page: 1
             });
-            const success = runs.data.workflow_runs[0] === 'success' ||
-             runs.data.workflow_runs[1] === 'success';
+            const success = (runs.data.workflow_runs[0]?.status === 'success') ||
+             (runs.data.workflow_runs[1]?.status === 'success');
             console.log(success);
         env:
           WORKFLOW: main.yml
