@@ -47,7 +47,3 @@ jobs:
           sudo cat /etc/sudoers
       - name: Dump env context
         run: printenv
-
-  two:
-    name: Test caller-called context
-    uses: ./.github/workflows/called.yml
