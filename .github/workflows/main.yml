@@ -64,6 +64,9 @@ jobs:
           result-encoding: json
           script: |
             const { WORKFLOW } = process.env
+            console.log(WORKFLOW);
+            console.log(context.ref);
+            console.log(context.event);
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
