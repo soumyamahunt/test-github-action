@@ -70,11 +70,7 @@ jobs:
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: WORKFLOW,
-              branch: context.ref,
-              event: context.eventName,
-              per_page: 1,
-              page: 1
+              workflow_id: WORKFLOW
             });
             console.log(runs);
         env:
