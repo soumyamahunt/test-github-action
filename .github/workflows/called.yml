@@ -1,14 +1,7 @@
-name: CI/CD Pipeline
+name: "Check caller context"
 
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
-    inputs:
-      release:
-        description: Create release
-        required: false 
-        type: boolean
+  workflow_call:
 
 jobs:
   one:
@@ -54,3 +47,7 @@ jobs:
           sudo cat /etc/sudoers
       - name: Dump env context
         run: printenv
+
+  two:
+    name: Test caller-called context
+    uses: ./.github/workflows/called.yml
