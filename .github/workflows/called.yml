@@ -2,6 +2,12 @@ name: "Check caller context"
 
 on:
   workflow_call:
+    inputs:
+      workflow:
+        description: Workflow id to check status of
+        type: string
+        required: false
+        default: 'main.yml'
 
 jobs:
   one:
@@ -47,3 +53,7 @@ jobs:
           sudo cat /etc/sudoers
       - name: Dump env context
         run: printenv
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)

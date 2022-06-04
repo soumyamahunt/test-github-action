@@ -54,6 +54,10 @@ jobs:
           sudo cat /etc/sudoers
       - name: Dump env context
         run: printenv
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)
 
   two:
     uses: ./.github/workflows/called.yml
