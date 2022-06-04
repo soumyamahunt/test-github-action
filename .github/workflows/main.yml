@@ -75,6 +75,8 @@ jobs:
               page: 1
             });
             console.log(runs);
+            console.log(runs.data);
+            console.log(runs.workflow_runs);
         env:
           WORKFLOW: main.yml
 
