@@ -56,5 +56,4 @@ jobs:
         run: printenv
 
   two:
-    name: Test caller-called context
     uses: ./.github/workflows/called.yml
