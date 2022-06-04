@@ -57,3 +57,26 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: console.log(context)
+      - name: Get last run
+        uses: actions/github-script@v6.1.0
+        with:
+          result-encoding: json
+          script: |
+            const { GITHUB_REF_NAME, WORKFLOW } = process.env
+            console.log(GITHUB_REF_NAME);
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: WORKFLOW,
+              branch: GITHUB_REF_NAME,
+              event: context.eventName,
+              per_page: 2,
+              page: 1
+            });
+            const success = (runs.data.workflow_runs[0]?.status === 'completed') ||
+             (runs.data.workflow_runs[1]?.status === 'completed');
+            console.log(runs.data.workflow_runs[0]?.status);
+            console.log(runs.data.workflow_runs[1]?.status);
+            console.log(success);
+        env:
+          WORKFLOW: called.yml
