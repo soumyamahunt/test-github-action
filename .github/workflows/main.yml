@@ -74,8 +74,8 @@ jobs:
               page: 1
             });
             console.log(runs);
-          env:
-            WORKFLOW: main.yml
+        env:
+          WORKFLOW: main.yml
 
   two:
     uses: ./.github/workflows/called.yml
