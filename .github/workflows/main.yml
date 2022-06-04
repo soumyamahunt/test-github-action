@@ -64,7 +64,7 @@ jobs:
           result-encoding: json
           script: |
             const { WORKFLOW } = process.env
-            const runs = github.rest.actions.listWorkflowRuns({
+            const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: WORKFLOW,
