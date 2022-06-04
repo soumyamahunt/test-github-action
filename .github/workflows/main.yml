@@ -67,7 +67,7 @@ jobs:
             console.log(WORKFLOW);
             console.log(context.refName);
             console.log(context.eventName);
-            console.log(context.context.repo);
+            console.log(context.repo);
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
