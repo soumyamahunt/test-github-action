@@ -84,5 +84,17 @@ jobs:
         with:
           script: console.log(context)
 
+      - name: Check should proceed running steps
+        id: precondition
+        uses: ./.github/actions/condition
+        with:
+          files: |
+            **/*
+            .github/**/*
+      - name: Dump precondition output
+        env:
+          CONDITION: ${{ steps.precondition.outputs.proceed }}
+        run: echo "$CONDITION"
+
   two:
     uses: ./.github/workflows/called.yml
