@@ -9,13 +9,17 @@ on:
         description: Create release
         required: false 
         type: boolean
+        
+defaults:
+  run:
+    shell: bash
 
 jobs:
   one:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-20.04]
+        os: [macos-latest, ubuntu-latest, windows-latest]
         include:
           - swift: '5.1.0'
             os: ubuntu-20.04
