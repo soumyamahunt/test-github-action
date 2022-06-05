@@ -24,77 +24,79 @@ jobs:
           - swift: '5.6'
             os: macos-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "MATRIX_CONTEXT"
-      - name: Dump user context
-        run: |
-          echo `id`
-          sudo cat /etc/sudoers
-      - name: Dump env context
-        run: printenv
-      - name: Get last run
-        id: check
-        uses: actions/github-script@v6.1.0
-        with:
-          result-encoding: json
-          script: |
-            const { GITHUB_REF_NAME, WORKFLOW } = process.env
-            console.log(GITHUB_REF_NAME);
-            const runs = await github.rest.actions.listWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: WORKFLOW,
-              branch: GITHUB_REF_NAME,
-              event: context.eventName,
-              per_page: 2,
-              page: 1
-            });
-            const success = (runs.data.workflow_runs[0]?.status === 'completed') ||
-             (runs.data.workflow_runs[1]?.status === 'completed');
-            console.log(runs.data.workflow_runs[0]?.status);
-            console.log(runs.data.workflow_runs[1]?.status);
-            return success;
-        env:
-          WORKFLOW: main.yml
-      - name: View context attributes
-        if: steps.check.outputs.result == 'true'
-        uses: actions/github-script@v6
-        with:
-          script: console.log(context)
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Dump job context
+      env:
+        JOB_CONTEXT: ${{ toJSON(job) }}
+      run: echo "$JOB_CONTEXT"
+    - name: Dump steps context
+      env:
+        STEPS_CONTEXT: ${{ toJSON(steps) }}
+      run: echo "$STEPS_CONTEXT"
+    - name: Dump runner context
+      env:
+        RUNNER_CONTEXT: ${{ toJSON(runner) }}
+      run: echo "$RUNNER_CONTEXT"
+    - name: Dump strategy context
+      env:
+        STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+      run: echo "$STRATEGY_CONTEXT"
+    - name: Dump matrix context
+      env:
+        MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+      run: echo "MATRIX_CONTEXT"
+    - name: Dump user context
+      run: |
+        echo `id`
+        sudo cat /etc/sudoers
+    - name: Dump env context
+      run: printenv
+    - name: Get last run
+      id: check
+      uses: actions/github-script@v6.1.0
+      with:
+        result-encoding: json
+        script: |
+          const { GITHUB_REF_NAME, WORKFLOW } = process.env
+          console.log(GITHUB_REF_NAME);
+          const runs = await github.rest.actions.listWorkflowRuns({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_id: WORKFLOW,
+            branch: GITHUB_REF_NAME,
+            event: context.eventName,
+            per_page: 2,
+            page: 1
+          });
+          const success = (runs.data.workflow_runs[0]?.status === 'completed') ||
+            (runs.data.workflow_runs[1]?.status === 'completed');
+          console.log(runs.data.workflow_runs[0]?.status);
+          console.log(runs.data.workflow_runs[1]?.status);
+          return success;
+      env:
+        WORKFLOW: main.yml
+    - name: View context attributes
+      if: steps.check.outputs.result == 'true'
+      uses: actions/github-script@v6
+      with:
+        script: console.log(context)
 
-      - name: Check should proceed running steps
-        id: precondition
-        uses: ./.github/actions/condition
-        with:
-          files: |
-            **/*
-            .github/**/*
-      - name: Dump precondition output
-        env:
-          CONDITION: ${{ steps.precondition.outputs.proceed }}
-        run: echo "$CONDITION"
+    - name: Check should proceed running steps
+      id: precondition
+      uses: ./.github/actions/condition
+      with:
+        files: |
+          **/*
+          .github/**/*
+    - name: Dump precondition output
+      env:
+        CONDITION: ${{ steps.precondition.outputs.proceed }}
+      run: echo "$CONDITION"
 
   two:
     uses: ./.github/workflows/called.yml
