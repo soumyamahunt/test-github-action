@@ -101,6 +101,8 @@ jobs:
       env:
         CONDITION: ${{ steps.precondition.outputs.proceed }}
       run: echo "$CONDITION"
+    - name: Test if gpg present
+      run: gpg
 
   two:
     uses: ./.github/workflows/called.yml
