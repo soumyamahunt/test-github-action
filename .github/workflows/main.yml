@@ -102,6 +102,7 @@ jobs:
         CONDITION: ${{ steps.precondition.outputs.proceed }}
       run: echo "$CONDITION"
     - name: Test if gpg present
+      continue-on-error: true
       run: gpg
 
   two:
