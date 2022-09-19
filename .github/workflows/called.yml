@@ -54,11 +54,11 @@ jobs:
       - name: Dump env context
         run: printenv
       - name: View context attributes
-        uses: actions/github-script@v6
+        uses: actions/github-script@v6.2.0
         with:
           script: console.log(context)
       - name: Get last run
-        uses: actions/github-script@v6.1.0
+        uses: actions/github-script@v6.2.0
         with:
           result-encoding: json
           script: |
