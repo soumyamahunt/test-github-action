@@ -63,7 +63,7 @@ jobs:
       run: printenv
     - name: Get last run
       id: check
-      uses: actions/github-script@v6.1.0
+      uses: actions/github-script@v6.3.3
       with:
         result-encoding: json
         script: |
@@ -87,7 +87,7 @@ jobs:
         WORKFLOW: main.yml
     - name: View context attributes
       if: steps.check.outputs.result == 'true'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v6.3.3
       with:
         script: console.log(context)
 
