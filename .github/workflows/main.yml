@@ -30,37 +30,46 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJSON(github) }}
       run: echo "$GITHUB_CONTEXT"
+      
     - name: Dump job context
       env:
         JOB_CONTEXT: ${{ toJSON(job) }}
       run: echo "$JOB_CONTEXT"
+      
     - name: Dump steps context
       env:
         STEPS_CONTEXT: ${{ toJSON(steps) }}
       run: echo "$STEPS_CONTEXT"
+      
     - name: Dump runner context
       env:
         RUNNER_CONTEXT: ${{ toJSON(runner) }}
       run: echo "$RUNNER_CONTEXT"
+      
     - name: Dump strategy context
       env:
         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
       run: echo "$STRATEGY_CONTEXT"
+      
     - name: Dump matrix context
       env:
         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
       run: echo "$MATRIX_CONTEXT"
+      
     - name: Dump user context
       if: runner.os != 'Windows'
       run: |
         echo `id`
         sudo cat /etc/sudoers
+        
     - name: Dump env context
       run: printenv
+      
     - name: Get last run
       id: check
       uses: actions/github-script@v6.1.0
@@ -85,6 +94,16 @@ jobs:
           return success;
       env:
         WORKFLOW: main.yml
+      
+    - name: Print cpu cores
+      id: os_core
+      uses: actions/github-script@v6.1.0
+      with:
+        result-encoding: json
+        script: |
+          const { cpus } = os;
+          console.log(cpus());
+        
     - name: View context attributes
       if: steps.check.outputs.result == 'true'
       uses: actions/github-script@v6
@@ -97,10 +116,12 @@ jobs:
       with:
         files: |
           lib/**/*
+          
     - name: Dump precondition output
       env:
         CONDITION: ${{ steps.precondition.outputs.proceed }}
       run: echo "$CONDITION"
+      
     - name: Test if gpg present
       continue-on-error: true
       run: gpg
