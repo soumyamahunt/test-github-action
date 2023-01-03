@@ -101,7 +101,7 @@ jobs:
       with:
         result-encoding: json
         script: |
-          const { cpus } = os;
+          const { cpus } = require('os');
           console.log(cpus());
         
     - name: View context attributes
