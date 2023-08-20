@@ -126,5 +126,10 @@ jobs:
       continue-on-error: true
       run: gpg
 
+    - name: Setup swift
+      uses: SwiftyLab/swift-version@github-action
+      with:
+        swift-version: '5.9'
+
   two:
     uses: ./.github/workflows/called.yml
