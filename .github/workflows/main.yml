@@ -116,7 +116,7 @@ jobs:
       with:
         files: |
           lib/**/*
-          
+
     - name: Dump precondition output
       env:
         CONDITION: ${{ steps.precondition.outputs.proceed }}
