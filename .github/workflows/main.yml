@@ -121,6 +121,30 @@ jobs:
       env:
         CONDITION: ${{ steps.precondition.outputs.proceed }}
       run: echo "$CONDITION"
+      
+    - name: Check script output
+      id: script-output
+      uses: actions/github-script@v6.1.0
+      with:
+        result-encoding: json
+        script: |
+          return { any_changed: true, swift_release: true };
+      
+    - name: Check script output condition
+      if: steps.script-output.outputs.result.any_changed == 'true'
+      run: echo hello
+      
+    - name: Check script output
+      id: script-output-str
+      uses: actions/github-script@v6.1.0
+      with:
+        result-encoding: string
+        script: |
+          return { any_changed: true, swift_release: true };
+      
+    - name: Check script output condition
+      if: fromJSON(steps.script-output-str.outputs.result_.any_changed == 'true'
+      run: echo hello
 
   two:
     uses: ./.github/workflows/called.yml
