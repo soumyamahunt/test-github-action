@@ -124,19 +124,24 @@ jobs:
       
     - name: Check script output
       id: script-output
-      uses: actions/github-script@v6.1.0
+      uses: actions/github-script@v6
       with:
         result-encoding: json
         script: |
+          core.setOutput('any_changed', true);
           return { any_changed: true, swift_release: true };
       
     - name: Check script output condition
       if: steps.script-output.outputs.result.any_changed == 'true'
       run: echo hello
       
+    - name: Check script output condition
+      if: steps.script-output.outputs.any_changed == 'true'
+      run: echo hello
+      
     - name: Check script output
       id: script-output-str
-      uses: actions/github-script@v6.1.0
+      uses: actions/github-script@v6
       with:
         result-encoding: string
         script: |
