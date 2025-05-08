@@ -151,5 +151,14 @@ jobs:
       if: fromJSON(steps.script-output-str.outputs.result).any_changed == 'true'
       run: echo hello
 
+    - name: Check compnerd Swift setup
+      if: runner.os == 'Windows'
+      uses: compnerd/gha-setup-swift
+      with:
+        branch: swift-development
+        tag: DEVELOPMENT-SNAPSHOT-2025-04-03-a
+    - if: runner.os == 'Windows'
+      run: swift -v
+
   two:
     uses: ./.github/workflows/called.yml
