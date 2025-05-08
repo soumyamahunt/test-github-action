@@ -153,7 +153,7 @@ jobs:
 
     - name: Check compnerd Swift setup
       if: runner.os == 'Windows'
-      uses: compnerd/gha-setup-swift
+      uses: compnerd/gha-setup-swift@main
       with:
         branch: swift-development
         tag: DEVELOPMENT-SNAPSHOT-2025-04-03-a
