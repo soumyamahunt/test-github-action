@@ -143,7 +143,7 @@ jobs:
       if: runner.os == 'Windows'
       uses: compnerd/gha-setup-swift@main
       with:
-        branch: swift-development
+        branch: development
         tag: DEVELOPMENT-SNAPSHOT-2025-04-03-a
     - if: runner.os == 'Windows'
       run: swift -v
