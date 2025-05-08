@@ -48,10 +48,12 @@ jobs:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "MATRIX_CONTEXT"
       - name: Dump user context
+        if: runner.os != 'Windows'
         run: |
           echo `id`
           sudo cat /etc/sudoers
       - name: Dump env context
+        if: runner.os != 'Windows'
         run: printenv
       - name: View context attributes
         uses: actions/github-script@v6

@@ -131,10 +131,6 @@ jobs:
           core.setOutput('any_changed', true);
           return { any_changed: true, swift_release: true };
       
-    - name: Check script output condition
-      if: steps.script-output.outputs.result.any_changed == 'true'
-      run: echo hello
-      
     - name: Check script output
       id: script-output-str
       uses: actions/github-script@v6
@@ -142,10 +138,6 @@ jobs:
         result-encoding: string
         script: |
           return { any_changed: true, swift_release: true };
-      
-    - name: Check script output condition
-      if: fromJSON(steps.script-output-str.outputs.result).any_changed == 'true'
-      run: echo hello
 
     - name: Check compnerd Swift setup
       if: runner.os == 'Windows'
