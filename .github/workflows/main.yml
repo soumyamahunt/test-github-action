@@ -135,10 +135,6 @@ jobs:
       if: steps.script-output.outputs.result.any_changed == 'true'
       run: echo hello
       
-    - name: Check script output condition
-      if: steps.script-output.outputs.any_changed == 'true'
-      run: echo hello
-      
     - name: Check script output
       id: script-output-str
       uses: actions/github-script@v6
