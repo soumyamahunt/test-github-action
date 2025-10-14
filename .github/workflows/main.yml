@@ -144,7 +144,7 @@ jobs:
       uses: compnerd/gha-setup-swift@main
       with:
         branch: development
-        tag: DEVELOPMENT-SNAPSHOT-2025-04-03-a
+        tag: DEVELOPMENT-SNAPSHOT-2025-10-02-a
     - if: runner.os == 'Windows'
       run: swift -v
 
